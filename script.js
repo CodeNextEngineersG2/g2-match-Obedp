@@ -42,7 +42,18 @@ var resetButton, musicButton;
      myImage = loadImage("assets/img/image.png");
    }
  */
-
+function loadImages(){
+  backImage = loadImage("assets/img/back.png");
+  transitionImage1 = loadImage("assets/img/transition1.png");
+  transitionImage2 = loadImage("assets/img/transition2.png");
+  transitionImage3 = loadImage("assets/img/transition3.png");
+  boltImage = loadImage("assets/img/bolt.png");
+  cloudImage = loadImage("assets/img/cloud.png");
+  sunImage = loadImage("assets/img/sun.png");
+  moonImage = loadImage("assets/img/moon.png");
+  smileyImage = loadImage("assets/img/smiley.png");
+  heartImage = loadImage("assets/img/heart.png");
+}
 
 /*
  * function loadAnimations()
@@ -55,7 +66,14 @@ var resetButton, musicButton;
      myAnimation = loadAnimation(img1, img2, img3, img4);
    }
  */
-
+function loadAnimations(){
+  boltAnimaton = loadAnimation(backImage, transitionImage1, transitionImage2, transitionImage3, boltImage);
+  cloudAnimation = loadAnimation(backImage, transitionImage1, transitionImage2, transitionImage3, cloudImage);
+  sunAnimation = loadAnimation(backImage, transitionImage1, transitionImage2, transitionImage3, sunImage),
+  moonAnimaton = loadAnimation(backImage, transitionImage1, transitionImage2, transitionImage3, moonImage);
+  smileyAnimation = loadAnimation(backImage, transitionImage1, transitionImage2, transitionImage3, smileyImage);
+  heartAnimation = loadAnimation(backImage, transitionImage1, transitionImage2, transitionImage3, heartImage);
+}
 
 /*
  * function loadSounds()
@@ -76,7 +94,10 @@ var resetButton, musicButton;
  * begin running until the assets are loaded and ready. Therefore, this function
  * is essentially a "pre-setup" function. 
  */
-
+function preload(){
+  loadImages();
+  loadAnimations();
+}
 
 /*
  * function setup()
@@ -84,7 +105,18 @@ var resetButton, musicButton;
  * Therefore, assets are assumed to have been loaded and ready before this
  * function is called.
  */
-
+function setup(){
+  gameScreen = createCanvas(790,370);
+  gameScreen.parent("#game-screen");
+  spriteWidth = 120;
+  spriteHeight = 168;
+  spriteX = 70;
+  spriteY = 95;
+  imageArray = [backImage, boltImage, cloudImage, sunImage, moonImage, smileyImage, heartImage, transitionImage1, transitionImage2, transitionImage3];
+  resizeImages();
+  createSprites();
+  spriteArray = [boltSprite1, boltSprite2, cloudSprite1, cloudSprite2, sunSprite1, sunSprite2, moonSprite1, moonSprite2, smileySprite1, smileySprite2, heartSprite1, heartSprite2];
+}
 
 /*
  * function draw()
@@ -120,7 +152,11 @@ var resetButton, musicButton;
  * Example of resizing one image:
    image.resize(40, 50);
  */
-
+function resizeImages(){
+  for(i=o; i<imageArray.length; i++){
+    imageArray[i].resize(spriteWidth, spriteHeight);
+  }
+}
 
 /*
  * function createSprites()
@@ -134,7 +170,20 @@ var resetButton, musicButton;
      mySprite = createSprite(0, 0, spriteWidth, spriteHeight);
    }
  */
-
+function createSprites(){
+  boltSprite1 = createSprite(0, 0, spriteWidth, spriteHeight);
+  boltSprite2 = createSprite(0, 0, spriteWidth, spriteHeight);
+  cloudSprite1 = createSprite(0, 0, spriteWidth, spriteHeight);
+  cloudSprite2 = createSprite(0, 0, spriteWidth, spriteHeight);
+  sunSprite1 = createSprite(0, 0, spriteWidth, spriteHeight);
+  sunSprite2 = createSprite(0, 0, spriteWidth, spriteHeight);
+  moonSprite1 = createSprite(0, 0, spriteWidth, spriteHeight);
+  moonSprite2 = createSprite(0, 0, spriteWidth, spriteHeight);
+  smileySprite1 = createSprite(0, 0, spriteWidth, spriteHeight);
+  smileySprite2 = createSprite(0, 0, spriteWidth, spriteHeight);
+  heartSprite1 = createSprite(0, 0, spriteWidth, spriteHeight);
+  heartSprite2 = createSprite(0, 0, spriteWidth, spriteHeight);
+}
 
 /*
  * function addAnimations()
@@ -144,7 +193,16 @@ var resetButton, musicButton;
  * each animation's frameDelay, loop, and playing properties. Finally, this
  * function calls activateSprite(s) with each sprite as input.
  */
-
+function addAnimations(){
+  var animations = [boltAnimation, boltAnimation, cloudAnimation, cloudAnimation, sunAnimation, sunAnimation, moonAnimation, moonAnimation, smileyAnimation, smileyAnimation, heartAnimation, heartAnimation];
+  for(var i = 0; i<spriteArray.length; i++){
+    spriteArray[i].addAnimation("flip", animations[i]);
+    spriteArray[i].animation.frameDelay = 10;
+    spriteArray[i].animation.looping = false;
+    spriteArray[i].animation.playing = false;
+    //activateSprite(spriteArray[i]);
+  }
+}
 
 /*
  * function placeSprites()
@@ -152,7 +210,9 @@ var resetButton, musicButton;
  * pattern you like. For starters, try arranging the sprites in a simple
  * grid-like pattern (e.g., 2x2 if you only have four sprites).
  */
-
+function placeSprites(){
+  
+}
 
 /*
  * function activateSprite(s)
